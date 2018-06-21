@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="FluentTest.Pages.DesignerUserControlMain"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FluentTest.Pages"
+             mc:Ignorable="d">
+    <UserControl.Background>
+        <SolidColorBrush Color="{DynamicResource Gray10}"/>
+    </UserControl.Background>
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TreeView Name="TestCaseTreeView" 
+                  ItemsSource="{Binding Path=ViewModel.TestSuitCollection}" 
+                  Grid.Row="0" Grid.Column="0" 
+                  SelectedItemChanged="TestCaseTreeView_SelectedItemChanged"
+                  Padding="1,5,0,0">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding TestCaseCollection}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="32" Height="32" Source="/Icons/suit.png" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                        <TextBlock Margin="10,0,0,0" FontSize="16" Text="{Binding Name}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <!-- Team template -->
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding TestStepCollection}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="32" Height="32" Source="/Icons/case.png" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                                <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Name}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <!-- Player template -->
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Width="32" Height="32" Source="/Icons/step.png" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                                        <TextBlock Margin="10,0,0,0" FontSize="12" Text="{Binding Name}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        
+        <StackPanel Name="labelPanel" MinHeight="500" MinWidth="200" Grid.Row="0" Grid.Column="1">
+            <local:TestEditorPanel/>
+        </StackPanel>
+        <TextBlock Text="Row0 Column2" Grid.Row="0" Grid.Column="2" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+    </Grid>
+</UserControl>

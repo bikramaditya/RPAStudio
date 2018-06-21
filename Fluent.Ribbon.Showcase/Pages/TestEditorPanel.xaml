@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="FluentTest.Pages.TestEditorPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FluentTest.Pages"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="400">
+    <Grid>
+        <WrapPanel HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="Element: " FontSize="20"/>
+            <TextBox Text="{Binding Path=ViewModel.SelectedNode.Name}" 
+                         Padding="10" MinWidth="200" x:Name="headerTextBox" HorizontalAlignment="Left" 
+                         VerticalAlignment="Center" IsEnabled="False" FontSize="20"/>
+            <Button Name="edit_button" Height="24" Width="24" Margin="10" IsEnabled="False">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Image Height="24" Width="24" Name="edit_button_image" Source="/Icons/edit.png"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </WrapPanel>
+    </Grid>
+</UserControl>
